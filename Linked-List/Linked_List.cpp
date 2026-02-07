@@ -68,6 +68,17 @@ int searchNode(Node *currentNode, int toFind) {
   }
 }
 
+void deleteLastNode(Node *currentNode) {
+  Node *prev;
+
+  while (currentNode->next != nullptr) {
+    prev = currentNode;
+    currentNode = currentNode->next;
+  }
+  prev->next = currentNode->next;
+  delete currentNode;
+}
+
 int main() {
 
   // DECLARE HEAD NODE
@@ -80,7 +91,7 @@ int main() {
   while (1) {
     cout << "\n\n\n1. insert Data.\n2. Count total of nodes.\n3. Search "
             "a "
-            "value.\n";
+            "value.\n4. Delete Last Node";
     int userInputOption;
     cin >> userInputOption;
 
@@ -125,6 +136,9 @@ int main() {
       } else {
         cout << "\nPresent at Node#" << searchResult << endl;
       }
+    } else if (userInputOption == 4) {
+      deleteLastNode(head);
+      printList(head);
     } else if (userInputOption == -1) {
       break;
     }
