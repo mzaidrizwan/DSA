@@ -1,5 +1,5 @@
 #include <cstddef>
-#include <iostream>
+#include <iostream>//reverse likned list iteratively,sort in acsending order.
 using namespace std;
 
 // CREATING CUSTOM DATA TYPE
@@ -82,7 +82,7 @@ void deleteLastNode(Node *currentNode) {
 int main() {
 
   // DECLARE HEAD NODE
-  Node *head = new Node();
+   Node *head = new Node();
 
   // INITIALIZE HEAD
   head->data = NULL;
@@ -138,7 +138,9 @@ int main() {
       }
     } else if (userInputOption == 4) {
       deleteLastNode(head);
-      printList(head);
+      if (head!=NULL) {
+        printList(head);
+      }
     } else if (userInputOption == -1) {
       break;
     }
