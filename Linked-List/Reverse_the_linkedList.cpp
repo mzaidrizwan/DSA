@@ -6,24 +6,24 @@ struct Node {
   Node *next;
 };
 
-Node * reverse(Node *head) {
-  Node *second = head->next;
-  Node *third;
+// function to reverse the list
+Node *reverse(Node *head) {
+  Node *second = head->next,*third;
+  head->next = nullptr;
   int b = 0;
 
   while (b < 1) {
-   
+
     if (second->next != nullptr)
       third = second->next;
     else
       ++b;
 
-    // cout << "\n add of "<<head->data << " : "<<head<<endl;
     second->next = head;
     head = second;
     second = third;
   }
-return head;
+  return head;
 }
 
 int main() {
@@ -68,25 +68,23 @@ int main() {
   }
   cout << "NULL\n\n\n";
 
- head =  reverse(head);
-cout << "head is "<<head->data;
+  head = reverse(head);
 
-  // Print list
-  
-    while (head->next != nullptr) {
-      cout << head->data << " -> ";
-      head = head->next;
-    }
-    cout << "null\n\n\n";
-  
+  // Print Reversed list
+  current = head;
+  while (current != nullptr) {
+    cout << current->data << " -> ";
+    current = current->next;
+  }
+  cout << "NULL\n\n\n";
 
   // Cleanup memory
-  // current = head;
-  // while (current != nullptr) {
-  //   Node *nextNode = current->next;
-  //   delete current;
-  //   current = nextNode;
-  // }
+  current = head;
+  while (current != nullptr) {
+    Node *nextNode = current->next;
+    delete current;
+    current = nextNode;
+  }
 
   return 0;
 }
