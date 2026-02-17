@@ -6,36 +6,29 @@ struct Node {
   Node *next;
 };
 
- Node * sort_accending(Node *head) {
+void sort_accending(Node *head) {
   Node *current = head;
-  Node *second = head->next;
-  int isSwaped;
+  Node *second;
 
-  while (isSwaped) {
-    isSwaped = 0;
+  while (current != nullptr) {
 
-    if (current->data > second->data) {
-      current->data = current->data + second->data;
-      second->data = current->data - second->data;
-      current->data = current->data - second->data;
-      isSwaped = 1;
+    second = current;
+
+    while (second != nullptr) {
+
+      // if (current == second)
+      //   continue;
+
+      if (current->data > second->data) {
+        current->data = current->data + second->data;
+        second->data = current->data - second->data;
+        current->data = current->data - second->data;
+      }
+      second = second->next;
     }
 
-    if (second->next == nullptr) {
-      current = head;
-      second = head->next;
-    }
-
-    current = second;
-    second = second->next;
+    current = current->next;
   }
-
-  Node *curren= head;
-  while (curren != nullptr) {
-    cout << curren->data << " -> ";
-    curren = curren->next;
-  }
-  cout << "NULL\n\n\n";
 }
 
 int main() {
@@ -72,7 +65,7 @@ int main() {
   fourth->next = fifth;
   fifth->next = sixth;
 
-  head = sort_accending(head);
+  sort_accending(head);
 
   // Print list
   Node *current = head;
