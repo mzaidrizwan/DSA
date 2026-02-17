@@ -16,9 +16,7 @@ void sort_accending(Node *head) {
 
     while (second != nullptr) {
 
-      // if (current == second)
-      //   continue;
-
+      //Manual Way to Swap
       if (current->data > second->data) {
         current->data = current->data + second->data;
         second->data = current->data - second->data;
