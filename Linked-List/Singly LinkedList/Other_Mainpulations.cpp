@@ -1,5 +1,4 @@
-#include <cstddef>
-#include <iostream>//reverse likned list iteratively,sort in acsending order.
+#include <iostream>
 using namespace std;
 
 // CREATING CUSTOM DATA TYPE

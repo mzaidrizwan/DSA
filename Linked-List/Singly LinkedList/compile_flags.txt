@@ -1,0 +1,9 @@
+--target=i686-pc-mingw32
+-D_FORTIFY_SOURCE=0
+-I
+D:/installed-programs/MingW/lib/gcc/mingw32/6.3.0/include/c++
+-I
+D:/installed-programs/MingW/lib/gcc/mingw32/6.3.0/include/c++/mingw32
+-I
+D:/installed-programs/MingW/include
+-xc++
