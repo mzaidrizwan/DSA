@@ -26,7 +26,7 @@ int main() {
             "Search a value\n5. insert after a specific data value.\n6. print "
             "in forward traversal.\n7. Delete a node at beginning.\n8. Delete "
             "a node at last.\n9. delete a node after a specific data "
-            "value.\n10. Print in Backward Traversel";
+            "value.\n10. Print in Backward Traversel\n11. reverse the list\n";
     cin >> userInp;
     cout << endl;
 
@@ -150,10 +150,11 @@ int main() {
       }
     } else if (userInp == 6) {
       // print in forward traversal
-      cout << "\nFinal list:\n";
+      cout << endl;
       Node *current = head;
       while (current != nullptr) {
         cout << current->data << " -> ";
+        //  cout << endl<<current->prev<<" | "<<current->data<<" | "<<current->next;
         current = current->next;
       }
       cout << "NULL\n";
@@ -191,9 +192,9 @@ int main() {
       } else if (found && tempNode->next == tail) {
         tail = tail->prev;
         tempNode = tempNode->next;
-        tail->next=nullptr;
+        tail->next = nullptr;
         delete tempNode;
-      } else if(!found) {
+      } else if (!found) {
         cout << "\ngiven position not found\n";
       }
     } else if (userInp == 10) {
@@ -206,6 +207,24 @@ int main() {
         cout << "NULL <- ";
       } else {
         cout << "\nlist is empty\n";
+      }
+    } else if (userInp == 11) {
+      if (head != nullptr) {
+        Node *tempNode = head;
+        Node *prev = nullptr, *tempPrev = nullptr, *next = nullptr;
+        while (tempNode != nullptr) {
+          prev = tempNode->prev;
+          next = tempNode->next;
+          
+          tempPrev = prev;
+          tempNode->prev = next;
+          tempNode->next = tempPrev;
+
+          tempNode = next;
+        }
+      
+        tail = head;
+        head = prev->prev;
       }
     }
   }
