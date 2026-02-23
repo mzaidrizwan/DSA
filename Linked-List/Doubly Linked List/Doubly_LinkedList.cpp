@@ -1,4 +1,3 @@
-#include <cstddef>
 #include <iostream>
 using namespace std;
 
@@ -26,7 +25,8 @@ int main() {
             "Search a value\n5. insert after a specific data value.\n6. print "
             "in forward traversal.\n7. Delete a node at beginning.\n8. Delete "
             "a node at last.\n9. delete a node after a specific data "
-            "value.\n10. Print in Backward Traversel\n11. reverse the list\n";
+            "value.\n10. Print in Backward Traversel\n11. reverse the "
+            "list\n12. Merge a new List\n";
     cin >> userInp;
     cout << endl;
 
@@ -154,7 +154,8 @@ int main() {
       Node *current = head;
       while (current != nullptr) {
         cout << current->data << " -> ";
-        //  cout << endl<<current->prev<<" | "<<current->data<<" | "<<current->next;
+        //  cout << endl<<current->prev<<" | "<<current->data<<" |
+        //  "<<current->next;
         current = current->next;
       }
       cout << "NULL\n";
@@ -215,16 +216,36 @@ int main() {
         while (tempNode != nullptr) {
           prev = tempNode->prev;
           next = tempNode->next;
-          
+
           tempPrev = prev;
           tempNode->prev = next;
           tempNode->next = tempPrev;
 
           tempNode = next;
         }
-      
+
         tail = head;
         head = prev->prev;
+      }
+    } else if (userInp == 12) {
+      if (head != nullptr) {
+        string userInpList;
+        int data=0;
+        cout << "\nenter a List to merge with( example format -2-3-4- ):\n";
+        cin >> userInpList;
+
+        for (int i = 0; i < userInpList.length(); i++) {
+
+          
+          if (userInpList[i] >= '0' && userInpList[i] <= '9') {
+            data = data * 10 + (userInpList[i] - 48); // converting string into integer.
+          }else if (i!=0){
+          Node * newNode = new Node(data,tail);
+          tail->next=newNode;
+          tail=newNode;
+          data=0;
+          }
+        }
       }
     }
   }
