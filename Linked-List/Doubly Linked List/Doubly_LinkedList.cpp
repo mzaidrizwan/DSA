@@ -19,40 +19,63 @@ int main() {
   Node *head = nullptr, *tail = nullptr; // start with empty list
   int userInp;
 
+  cout << "=============================================\n";
+  cout << "        DOUBLY LINKED LIST MANAGER\n";
+  cout << "=============================================\n";
+  cout << "Interactive Console Application\n";
+
   while (true) {
-    cout << "enter -1 to close program.\n1. Insert New Data at beginning.\n2. "
-            "Insert New Data at End.\n3. Count total number of nodes\n 4. "
-            "Search a value\n5. insert after a specific data value.\n6. print "
-            "in forward traversal.\n7. Delete a node at beginning.\n8. Delete "
-            "a node at last.\n9. delete a node after a specific data "
-            "value.\n10. Print in Backward Traversel\n11. reverse the "
-            "list\n12. Merge a new List\n";
+
+    cout << "\n---------------------------------------------\n";
+    cout << "Choose an Operation:\n";
+    cout << "---------------------------------------------\n";
+    cout << "  1  -> Insert at Beginning\n";
+    cout << "  2  -> Insert at End\n";
+    cout << "  3  -> Count Total Nodes\n";
+    cout << "  4  -> Search a Value\n";
+    cout << "  5  -> Insert After Specific Value\n";
+    cout << "  6  -> Print Forward Traversal\n";
+    cout << "  7  -> Delete at Beginning\n";
+    cout << "  8  -> Delete at End\n";
+    cout << "  9  -> Delete After Specific Value\n";
+    cout << " 10  -> Print Backward Traversal\n";
+    cout << " 11  -> Reverse the List\n";
+    cout << " 12  -> Merge Another List\n";
+    cout << " -1  -> Exit Program\n";
+    cout << "---------------------------------------------\n";
+    cout << "Enter your choice: ";
+
     cin >> userInp;
     cout << endl;
 
     if (userInp == -1) {
+      cout << "\nProgram terminated successfully.\n";
+      cout << "Cleaning up memory...\n";
       break;
     }
 
     if (userInp == 1) {
+      cout << "[Insert at Beginning]\n";
       int userInpData;
-      cout << "\nEnter data value:\n";
+      cout << "Enter data value: ";
       cin >> userInpData;
 
       if (head != nullptr) {
-        // insert at beginning
         Node *newNode = new Node(userInpData, nullptr, head);
         head->prev = newNode;
         head = newNode;
       } else {
-        // first node
         head = new Node(userInpData);
         tail = head;
       }
-    } else if (userInp == 2) {
 
+      cout << "Node inserted successfully.\n";
+    }
+
+    else if (userInp == 2) {
+      cout << "[Insert at End]\n";
       int userInpData;
-      cout << "\nEnter data value:\n";
+      cout << "Enter data value: ";
       cin >> userInpData;
 
       if (head != nullptr) {
@@ -65,7 +88,12 @@ int main() {
       } else {
         head = new Node(userInpData);
       }
-    } else if (userInp == 3) {
+
+      cout << "Node inserted successfully.\n";
+    }
+
+    else if (userInp == 3) {
+      cout << "[Count Total Nodes]\n";
       if (head != nullptr) {
         int length = 0;
         Node *tempNode = head;
@@ -73,14 +101,17 @@ int main() {
           ++length;
           tempNode = tempNode->next;
         }
-        cout << "\nlength of list is " << length << endl << endl;
+        cout << "Total number of nodes: " << length << endl;
       } else {
-        cout << "\n list is empty\n\n\n";
+        cout << "List is empty.\n";
       }
-    } else if (userInp == 4) {
+    }
+
+    else if (userInp == 4) {
+      cout << "[Search Operation]\n";
       int userInpData, position = 0;
       bool found = false;
-      cout << "\nEnter a value to search: ";
+      cout << "Enter a value to search: ";
       cin >> userInpData;
 
       if (head != nullptr) {
@@ -88,89 +119,106 @@ int main() {
 
         while (tempNode != nullptr) {
           position++;
-
           if (tempNode->data == userInpData) {
             found = true;
             break;
           }
-
           tempNode = tempNode->next;
         }
-        if (found) {
-          cout << "\n\n present at position " << position << endl;
-        } else {
-          cout << "\n\nnot found\n";
-        }
 
+        if (found)
+          cout << "Value found at position " << position << endl;
+        else
+          cout << "Value not found in list.\n";
       } else {
-        cout << "\nlist is empty\n";
+        cout << "List is empty.\n";
       }
-    } else if (userInp == 5) {
+    }
+
+    else if (userInp == 5) {
+      cout << "[Insert After Specific Value]\n";
       int userInpData, userInpPosition;
       bool found = false;
-      cout << "\nEnter new data value: ";
+      cout << "Enter new data value: ";
       cin >> userInpData;
 
-      cout << "\nEnter data value after which the new data to insert: ";
+      cout << "Enter data value after which to insert: ";
       cin >> userInpPosition;
 
       if (head != nullptr) {
         Node *tempNode = head;
         while (tempNode != nullptr) {
-
           if (tempNode->data == userInpPosition) {
             break;
             found = true;
           }
-
           tempNode = tempNode->next;
         }
 
         if (found && tempNode->next != nullptr) {
           Node *newNode = new Node(userInpData, tempNode, tempNode->next);
           tempNode->next = newNode;
-        } else if (tempNode->next ==
-                   nullptr) { // to handle inserting at the last position
-                              // without using inserAtEnd() function.
+        } else if (tempNode->next == nullptr) {
           Node *newNode = new Node(userInpData, tempNode, nullptr);
           tempNode->next = newNode;
           tail = newNode;
         } else if (!found) {
-          cout << "\nentered postion not found\n";
+          cout << "Given position not found.\n";
         }
+
+        cout << "Operation completed.\n";
       }
-    } else if (userInp == 7) {
+    }
+
+    else if (userInp == 6) {
+      cout << "[Forward Traversal]\n";
+      if (head != nullptr) {
+        Node *current = head;
+        cout << "HEAD <-> ";
+        while (current != nullptr) {
+          cout << current->data << " <-> ";
+          current = current->next;
+        }
+        cout << "NULL\n";
+      } else {
+        cout << "List is empty.\n";
+      }
+    }
+
+    else if (userInp == 7) {
+      cout << "[Delete at Beginning]\n";
       if (head != nullptr) {
         Node *tempNode = head;
         head = head->next;
-        head->prev = nullptr;
+        if (head != nullptr)
+          head->prev = nullptr;
         delete tempNode;
+        cout << "Node deleted successfully.\n";
       } else {
-        cout << "\nlist is empty\n";
+        cout << "List is empty.\n";
       }
-    } else if (userInp == 6) {
-      // print in forward traversal
-      cout << endl;
-      Node *current = head;
-      while (current != nullptr) {
-        cout << current->data << " -> ";
-        //  cout << endl<<current->prev<<" | "<<current->data<<" |
-        //  "<<current->next;
-        current = current->next;
-      }
-      cout << "NULL\n";
-    } else if (userInp == 8) {
+    }
+
+    else if (userInp == 8) {
+      cout << "[Delete at End]\n";
       if (head != nullptr) {
         Node *nodeToDelete = tail;
         tail = tail->prev;
-        tail->next = nullptr;
+        if (tail != nullptr)
+          tail->next = nullptr;
         delete nodeToDelete;
+        cout << "Node deleted successfully.\n";
+      } else {
+        cout << "List is empty.\n";
       }
-    } else if (userInp == 9) {
+    }
+
+    else if (userInp == 9) {
+      cout << "[Delete After Specific Value]\n";
       int userInpPosition;
       bool found = false;
 
-      cout << "\nEnter data value after which the node to delete: ";
+      cout << "Enter data value after which to delete: ";
       cin >> userInpPosition;
 
       Node *tempNode = head;
@@ -190,26 +238,35 @@ int main() {
         tempNode = tempNode->next;
         tempNode->prev = tempPrevious;
         delete nodeToDelete;
+        cout << "Node deleted successfully.\n";
       } else if (found && tempNode->next == tail) {
         tail = tail->prev;
         tempNode = tempNode->next;
         tail->next = nullptr;
         delete tempNode;
+        cout << "Node deleted successfully.\n";
       } else if (!found) {
-        cout << "\ngiven position not found\n";
+        cout << "Given position not found.\n";
       }
-    } else if (userInp == 10) {
+    }
+
+    else if (userInp == 10) {
+      cout << "[Backward Traversal]\n";
       if (head != nullptr) {
         Node *tempNode = tail;
+        cout << "NULL <-> ";
         while (tempNode != nullptr) {
-          cout << " <- " << tempNode->data;
+          cout << tempNode->data << " <-> ";
           tempNode = tempNode->prev;
         }
-        cout << "NULL <- ";
+        cout << "HEAD\n";
       } else {
-        cout << "\nlist is empty\n";
+        cout << "List is empty.\n";
       }
-    } else if (userInp == 11) {
+    }
+
+    else if (userInp == 11) {
+      cout << "[Reverse List]\n";
       if (head != nullptr) {
         Node *tempNode = head;
         Node *prev = nullptr, *tempPrev = nullptr, *next = nullptr;
@@ -226,28 +283,43 @@ int main() {
 
         tail = head;
         head = prev->prev;
+
+        cout << "List reversed successfully.\n";
+      } else {
+        cout << "List is empty.\n";
       }
-    } else if (userInp == 12) {
+    }
+
+    else if (userInp == 12) {
+      cout << "[Merge Another List]\n";
       if (head != nullptr) {
         string userInpList;
-        int data=0;
-        cout << "\nenter a List to merge with( example format -2-3-4- ):\n";
+        int data = 0;
+        cout << "Enter list to merge (example format -2-3-4-): ";
         cin >> userInpList;
 
         for (int i = 0; i < userInpList.length(); i++) {
-
-          
           if (userInpList[i] >= '0' && userInpList[i] <= '9') {
-            data = data * 10 + (userInpList[i] - 48); // converting string into integer.
-          }else if (i!=0){
-          Node * newNode = new Node(data,tail);
-          tail->next=newNode;
-          tail=newNode;
-          data=0;
+            data = data * 10 + (userInpList[i] - 48);
+          } else if (i != 0) {
+            Node *newNode = new Node(data, tail);
+            tail->next = newNode;
+            tail = newNode;
+            data = 0;
           }
         }
+
+        cout << "List merged successfully.\n";
+      } else {
+        cout << "List is empty. Cannot merge.\n";
       }
     }
+
+    else {
+      cout << "Invalid choice. Please try again.\n";
+    }
+
+    cout << "---------------------------------------------\n";
   }
 
   // cleanup memory
