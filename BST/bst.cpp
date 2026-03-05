@@ -1,5 +1,6 @@
 #include <algorithm>
 #include <cstddef>
+#include <exception>
 #include <iostream>
 using namespace std;
 
@@ -67,7 +68,7 @@ void add(int data) {
   }
 }
 
-void searchInBST(int data) {
+Node *searchInBST(int data) {
   Node *currentPosition = head;
 
   while (1) {
@@ -75,26 +76,70 @@ void searchInBST(int data) {
       if (currentPosition->left != nullptr)
         currentPosition = currentPosition->left;
       else {
-        cout << " Not Found-1";
+        cout << " Not Found";
         break;
       }
     } else if (data > currentPosition->data) {
       if (currentPosition->right != nullptr)
         currentPosition = currentPosition->right;
       else {
-        cout << " Not Found-2";
+        cout << " Not Found ";
         break;
       }
     } else if (data == currentPosition->data) {
-      cout << data << " is present as Child Node of " << currentPosition->parent->data;
+      return currentPosition;
       break;
     }
   }
 }
 
+void deletE(int data) {
+  if (Node *currentPosition = searchInBST(data))
+    while (1) {
+      bool NoLeftNode = currentPosition->left == nullptr,
+           NoRightNode = currentPosition->right == nullptr;
+
+      if (NoLeftNode && NoRightNode) { // if it's leaf node
+
+        Node *parent_left = currentPosition->parent->left;
+        Node *parent_right = currentPosition->parent->right;
+        if (parent_left->data == currentPosition->data) {
+          parent_left = nullptr;
+          cout << "\ndeleted as " << currentPosition->parent->data
+               << "'s left node\n";
+        } else {
+          parent_right = nullptr;
+          cout << "\ndeleted as " << currentPosition->parent->data
+               << "'s right node\n";
+        }
+        break;
+      } else if (NoLeftNode || NoRightNode) { // if have just one child
+        if (NoLeftNode) {                     // linking direct with its parent
+          currentPosition->parent->right = currentPosition->right;
+          currentPosition->right->parent = currentPosition->parent;
+          cout << "\ndeleted as " << currentPosition->parent->data
+               << "'s right node\n";
+        } else { // linking direct with its parent
+          currentPosition->parent->left = currentPosition->left;
+          currentPosition->left->parent = currentPosition->parent;
+          cout << "\ndeleted as " << currentPosition->parent->data
+               << "'s left node\n";
+        }
+
+        delete currentPosition;
+      } else if (!NoLeftNode && !NoRightNode) {
+        Node *parent = currentPosition->parent;
+        currentPosition = currentPosition->left;
+        do {
+currentPosition=
+        } while ()
+      }
+    }
+}
+
 int main() {
   while (1) {
-    cout << "\n1. Add data\n2. Search Value\n";
+    cout << "\n1. Add data\n2. Search Value\n3. Delete a Node.\n";
     int userInp;
     cin >> userInp;
 
@@ -107,7 +152,13 @@ int main() {
       cout << "Enter value to search: ";
       int data;
       cin >> data;
-      searchInBST(data);
+      cout << data << " is present as Child Node of "
+           << searchInBST(data)->parent->data;
+    } else if (userInp == 3) {
+      cout << "Enter value to delete: ";
+      int data;
+      cin >> data;
+      deletE(data);
     }
   }
 }
