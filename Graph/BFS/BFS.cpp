@@ -64,8 +64,11 @@ int main() {
       break;
   }
 
-  cout << "\nAdjacency List:\n";
+  cout << "\nLevel wise nodes:\n";
   print_BFS(graph);
-  BFS(graph, 0);
+  
+  
+  cout << "\nEnter Starting point for BFS Traversal: ";int start;cin>>start;
+  BFS(graph, start);
   return 0;
 }
