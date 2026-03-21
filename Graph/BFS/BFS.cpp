@@ -4,25 +4,27 @@
 #include <vector>
 using namespace std;
 
-void BFS(vector<vector<int>>const &graph, int start) {
-  queue<int> queue;
-  vector<bool> visited(graph.size(), false);
+void BFS(vector<vector<int>> const &graph, int start) {
+  queue<int> q;
+  vector<int> visited(graph.size(), 0);
   while (1) {
 
-    visited[start] = true;
-    cout << start<<" , \n";
+    visited[start] = 2;
+    cout << start << " , \n";
 
     for (size_t i = 0; i < graph[start].size(); i++) {
-
-      if (!visited[graph[start][i]])
-        queue.push(graph[start][i]);
-
+      int position = graph[start][i];
+      if (!visited[position]) {
+        q.push(position);
+        visited[position] = 1;
+      }
     }
 
-    if (!queue.empty()) {
-    start = queue.front();
-    queue.pop();
-    }else break;
+    if (!q.empty()) {
+      start = q.front();
+      q.pop();
+    } else
+      break;
   }
 }
 
