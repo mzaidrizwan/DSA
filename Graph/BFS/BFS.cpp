@@ -1,30 +1,36 @@
+#include <cmath>
 #include <cstddef>
 #include <iostream>
 #include <queue>
+#include <string>
 #include <vector>
 using namespace std;
 
 void BFS(vector<vector<int>> const &graph, int start) {
   queue<int> q;
+  q.push(start);
   vector<int> visited(graph.size(), 0);
-  while (1) {
+  vector<string> distances(graph.size());
+  distances[0]=to_string(start);
+
+  while (!q.empty()) {
+    start = q.front();
+    q.pop();
 
     visited[start] = 2;
-    cout << start << " , \n";
+    // cout << start << " , ";
 
     for (size_t i = 0; i < graph[start].size(); i++) {
-      int position = graph[start][i];
-      if (!visited[position]) {
-        q.push(position);
-        visited[position] = 1;
+      int neighbour = graph[start][i];
+      if (!visited[neighbour]) {
+        q.push(neighbour);
+        visited[neighbour] = 1;
+
+        distances[neighbour] = distances[start] + "-" + to_string(neighbour);
+        
+        cout << endl << " path for "<<neighbour<<" : "<<distances[neighbour] <<"| distance : "<<ceil(distances[neighbour].length()/2) <<" unit";
       }
     }
-
-    if (!q.empty()) {
-      start = q.front();
-      q.pop();
-    } else
-      break;
   }
 }
 
@@ -41,10 +47,10 @@ void print_BFS(vector<vector<int>> &graph) {
 int main() {
   vector<vector<int>> graph;
 
-  while (true) {
+  while (1) {
     vector<int> neighbours;
 
-    while (true) {
+    while (1) {
       cout << "Enter neighbour (-1 to stop for this node): ";
       int dataInput;
       cin >> dataInput;
@@ -66,9 +72,10 @@ int main() {
 
   cout << "\nLevel wise nodes:\n";
   print_BFS(graph);
-  
-  
-  cout << "\nEnter Starting point for BFS Traversal: ";int start;cin>>start;
+
+  cout << "\nEnter Starting point for BFS Traversal: ";
+  int start;
+  cin >> start;
   BFS(graph, start);
   return 0;
 }
