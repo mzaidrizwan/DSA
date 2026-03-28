@@ -11,14 +11,15 @@ void BFS(vector<vector<int>> const &graph, int start) {
   q.push(start);
   vector<int> visited(graph.size(), 0);
   vector<string> distances(graph.size());
-  distances[0]=to_string(start);
+  distances[0] = to_string(start);
+  string traversal;
 
   while (!q.empty()) {
     start = q.front();
     q.pop();
 
     visited[start] = 2;
-    // cout << start << " , ";
+    traversal = traversal + " " + to_string(start);
 
     for (size_t i = 0; i < graph[start].size(); i++) {
       int neighbour = graph[start][i];
@@ -27,11 +28,15 @@ void BFS(vector<vector<int>> const &graph, int start) {
         visited[neighbour] = 1;
 
         distances[neighbour] = distances[start] + "-" + to_string(neighbour);
-        
-        cout << endl << " path for "<<neighbour<<" : "<<distances[neighbour] <<"| distance : "<<ceil(distances[neighbour].length()/2) <<" unit";
+
+        cout << endl
+             << " path for " << neighbour << " : " << distances[neighbour]
+             << "| distance : " << ceil(distances[neighbour].length() / 2)
+             << " unit";
       }
     }
   }
+  cout<<"\n\n BFS traversal"<<traversal;
 }
 
 void print_BFS(vector<vector<int>> &graph) {
