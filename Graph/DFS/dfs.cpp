@@ -1,8 +1,5 @@
-#include <codecvt>
 #include <cstddef>
 #include <iostream>
-#include <stack>
-#include <string>
 #include <vector>
 using namespace std;
 vector<vector<int>> graph;
@@ -18,37 +15,13 @@ void print_DFS() {
   }
 }
 
-string DFS(vector<int> visited, stack<int> prev, int current, string traversal) {
-
-  bool haveUnvisitedNeighbor = false;
-
-  traversal = traversal + " " + to_string(current);
-
-  visited[current] = 2;
-
-  prev.push(current);
-
-  for (size_t i = 0; i < graph[current].size(); i++) {
-    int neighbor = graph[current][i];
-    if (!neighbor) {
-      visited[neighbor] = 1;
-      current = neighbor;
-      haveUnvisitedNeighbor = true;
-      break;
+void DFS(vector<vector<int>> &graph, vector<int> &visited, int node) {
+  visited[node] = 1;
+  cout << node << " ";
+  for (int neighbor : graph[node]) {
+    if (!visited[neighbor]) {
+      DFS(graph, visited, neighbor);
     }
-  }
-
-  if (haveUnvisitedNeighbor)
-    return DFS(visited, prev, current, traversal);
-  else {
-    prev.pop();
-    current = prev.top();
-    prev.pop();
-    return DFS(visited, prev, current, traversal);
-  }
-
-  if (prev.empty()) {
-    return traversal;
   }
 }
 
@@ -84,8 +57,7 @@ int main() {
   int start;
   cin >> start;
   vector<int> visited(graph.size(), 0);
-  stack<int> prev;
-  string r = "sdnd";
-  cout << DFS(visited, prev, start, "");
+  cout << "DFS Traversal: ";
+  DFS(graph, visited, start);
   return 0;
 }
