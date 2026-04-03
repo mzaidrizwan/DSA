@@ -1,37 +1,39 @@
 #include <cstddef>
 #include <iostream>
-#include <utility>
 #include <vector>
 using namespace std;
 
-int partitioner(vector<int> &arr, int i, int pvt) {
-  size_t j = 0;
-  for (; j < arr.size(); j++) {
-    if (arr[j] <= arr[pvt] || j == pvt) {
+int partition(vector<int> &arr, int low, int high) {
+  int i = low - 1;
+  for (int j = low; j < high; j++) {
+    if (arr[j] <= arr[high]) {
       swap(arr[++i], arr[j]);
     }
   }
-  return j;
+  swap(arr[i + 1], arr[high]);
+  return i + 1;
 }
 
-void QuickSort(vector<int> &arr, int i, int pvt) {
-  if (pvt - i != 0) {
-    int partition = partitioner(arr, i - 1, pvt);
-
-    QuickSort(arr, i, partition-1);
+void quickSort(vector<int> &arr, int low, int high) {
+  if (low < high) {
+    int pi = partition(arr, low, high);
+    quickSort(arr, low, pi - 1);
+    quickSort(arr, pi + 1, high);
   }
 }
 
 int main() {
 
-  vector<int> my_array = {20, 2, 7, 12, 15, 1, 6, 8};
-  // Call quicksort function
-
-  // Print sorted array
-  cout << "Sorted array: ";
-  for (int num : my_array) {
-    cout << num << " ";
+  vector<int> arr;
+  int userInp;
+  while (1) {
+    cout << "Enter integers in array (-1 to stop inputting): ";
+    cin >> userInp;
+    if (userInp == -1)
+      break;
+    arr.push_back(userInp);
   }
-
-  return 0;
+  quickSort(arr, 0, arr.size() - 1);
+  for (int n : arr)
+    cout << n << " ";
 }
