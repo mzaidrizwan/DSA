@@ -24,7 +24,7 @@ void enqueue(int data) {
 }
 
 void dequeue() {
-  if (front != -1|| front>rear) {
+  if (front != -1) {
     queue[front] = -1;
     front = (front + 1) % length;
     --numberOfElement;
