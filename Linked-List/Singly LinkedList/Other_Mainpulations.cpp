@@ -8,8 +8,7 @@ struct Node {
 };
 
 // PRINT LINKEDLIST
-void printList(Node *head) {
-  Node *currentNode = head;
+void printList(Node *currentNode) {
 
   while (currentNode != NULL) {
     cout << currentNode->data << " - ";
@@ -26,16 +25,11 @@ Node *createNode(int data) {
 }
 
 // INSERT NEW NODE AT BEGINNING
-void inserAtBeginning(Node *head, Node *newNode) {
-  int temp_stored_data = newNode->data;
-  Node *temp_stored_next = newNode;
-
-  newNode->data = head->data;
-  newNode->next = head->next;
-
-  head->data = temp_stored_data;
-  head->next = temp_stored_next;
+void inserAtBeginning(Node *&head, Node *newNode) {
+  newNode->next =head;
+  head = newNode;
 }
+
 
 // COUNT TOTAL NUMBER OF NODES
 int countTotalNodes(Node *currentNode) {

@@ -20,7 +20,7 @@ int main() {
   int userInp;
 
   cout << "=============================================\n";
-  cout << "        DOUBLY LINKED LIST MANAGER\n";
+  cout << "       QUEUE BY DOUBLY LINKED LIST\n";
   cout << "=============================================\n";
 
   while (true) {
